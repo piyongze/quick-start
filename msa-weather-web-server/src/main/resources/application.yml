@@ -1,0 +1,26 @@
+server:
+  port: 8084
+
+spring:
+  thymeleaf:
+    cache: false
+    mode: HTML5
+  application:
+    name: msa-weather-web-server
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8086/eureka/
+
+feign:
+  client:
+    config:
+      feignName:
+        connectTimeout: 5000
+        readTimeout: 5000
+  hystrix:
+    enabled: true
+
+logging:
+  config: classpath:logback.xml

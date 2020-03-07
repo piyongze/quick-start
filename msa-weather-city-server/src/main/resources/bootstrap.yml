@@ -1,0 +1,19 @@
+server:
+  port: 8085
+
+spring:
+  application:
+    name: msa-weather-city-server
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: msa-weather-config-server
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8086/eureka/
+
+logging:
+  config: classpath:logback.xml

@@ -1,0 +1,25 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: msa-weather-gateway-server
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8086/eureka/
+
+zuul:
+  routes:
+    city-route:
+      path: /weather/city/**
+      serviceId: msa-weather-city-server
+      strip-prefix: false
+    api-route:
+      path:  /weather/api/**
+      serviceId: msa-weather-api-server
+      strip-prefix: false
+
+logging:
+  config: classpath:logback.xml

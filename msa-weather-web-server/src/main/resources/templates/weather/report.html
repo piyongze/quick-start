@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>老魏的天气预报</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=l, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+    <script>
+        $(function () {
+            $("#selectCityId").change(function () {
+                var cityId = $("#selectCityId").val();
+                var url = '/weather/web/cityId/' + cityId;
+                window.location.href = url;
+            });
+        })
+    </script>
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <h3 th:text="${reportModel.title}">waylau</h3>
+        <select id="selectCityId">
+            <option th:each="city : ${reportModel.cityList}"
+                    th:value="${city.cityId}" th:text="${city.cityName}"
+                    th:selected="${city.cityId eq reportModel.cityId}">Volvo
+            </option>
+        </select>
+    </div>
+    <div th:if="${reportModel.report} != null">
+        <div class="row">
+            <h1 th:text="${reportModel.report.city}"></h1>
+        </div>
+        <div class="row">
+            <p>
+                空气质量指数：<span th:text="${reportModel.report.aqi}"></span>
+            </p>
+        </div>
+        <div class="row">
+            <p>
+                当前温度：<span th:text="${reportModel.report.wendu}"></span>
+            </p>
+        </div>
+        <div class="row">
+            <p>
+                温馨提示：<span th:text="${reportModel.report.ganmao}"></span>
+            </p>
+        </div>
+        <div class="row">
+            <div class="card" th:each="forecast : ${reportModel.report.forecast}">
+                <div class="card-body">
+                    <p class="card-text" th:text="${forecast.date}">周五</p>
+                    <p class="card-text" th:text="${forecast.type}">晴转多云</p>
+                    <p class="card-text" th:text="${forecast.high}">高温28</p>
+                    <p class="card-text" th:text="${forecast.low}">低温21</p>
+                    <p class="card-text" th:text="${forecast.fengxiang}">无持续风向微风</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:if="${reportModel.report} == null">
+        <div class="row">
+            <p>
+                服务不可用
+            </p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

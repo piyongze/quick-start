@@ -1,0 +1,32 @@
+server:
+  port: 8082
+
+spring:
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    jedis:
+      pool:
+        max-active: 20
+        max-idle: 50
+        min-idle: 10
+        max-wait: 100
+    timeout: 1000
+  application:
+    name: msa-weather-job-server
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8086/eureka/
+
+feign:
+  client:
+    config:
+      feignName:
+        connectTimeout: 5000
+        readTimeout: 5000
+
+logging:
+  config: classpath:logback.xml
